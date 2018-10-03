@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'database_cleaner'
+require 'support/request_spec_helper'
 
 # adding this to configure the Shoulda Matchers to work with rspec
 Shoulda::Matchers.configure do |config|
@@ -43,8 +44,11 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-   # add `FactoryBot` methods
-   config.include FactoryBot::Syntax::Methods
+  # add request spec helper
+  config.include RequestSpecHelper, type: :request
+
+  # add `FactoryBot` methods
+  config.include FactoryBot::Syntax::Methods
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
